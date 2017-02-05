@@ -1,0 +1,11 @@
+#Files to ignore
+*/Build
+*/Binaries
+*/DerivedDataCache
+*/Intermediate
+*/Saved
+
+#Ignore only for this project as it is a big file
+BuildingEscape/Content/StarterContent/
+BuildingEscape/BuildingEscape.VC.db
+
