@@ -6,6 +6,7 @@
 */Saved
 
 #Ignore only for this project as it is a big file
-BuildingEscape/Content/StarterContent/
+BuildingEscape/Content/StarterContent/Textures
+BuildingEscape/Content/StarterContent/HDRI
 BuildingEscape/BuildingEscape.VC.db
 
