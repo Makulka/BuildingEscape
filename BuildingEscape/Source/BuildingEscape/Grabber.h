@@ -22,6 +22,16 @@ public:
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 private:
 	float Reach = 100.f;
-		
-	
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UInputComponent* InputComponent = nullptr;
+
+	FVector GetReachLineStart();
+	FVector GetReachLineEnd();
+	//Line-tracing to detect a physics body
+	FHitResult  GetFirstPhysicsBodyInReach();
+	void FindPhysicsHandleComponent();
+	void SetupInputComponent();
+	void Grab();
+	void Release();
+
 };
