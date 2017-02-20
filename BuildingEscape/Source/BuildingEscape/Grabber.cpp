@@ -53,6 +53,7 @@ void UGrabber::Grab()
 	AActor* ActorToGrab = HitResult.GetActor();
 	if (ActorToGrab)
 	{
+		if (!PhysicsHandle) { return; }
 		PhysicsHandle->GrabComponent(ComponentToGrab, NAME_None, ComponentToGrab->GetOwner()->GetActorLocation(), true);
 	}
 	else 
@@ -63,10 +64,11 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
+	if (!PhysicsHandle) { return; }
 	PhysicsHandle->ReleaseComponent();
 }
 
-FHitResult UGrabber::GetFirstPhysicsBodyInReach()
+FHitResult const UGrabber::GetFirstPhysicsBodyInReach()
 {
 	///Line-trace out to reach distance - ray-cast
 	//set up a Hit - variable where the result of the ray-cast will be stored - what we hit = an out_parameter
@@ -89,6 +91,7 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
 	///if physics handle has grabbed an object, change the position of the grabbed object to the end of the reach line of the pawn
+	if (!PhysicsHandle) { return; }
 	if (PhysicsHandle->GrabbedComponent) {
 		PhysicsHandle->SetTargetLocation(GetReachLineEnd());
 	}

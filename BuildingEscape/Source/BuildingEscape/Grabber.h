@@ -28,7 +28,7 @@ private:
 	FVector GetReachLineStart();
 	FVector GetReachLineEnd();
 	//Line-tracing to detect a physics body
-	FHitResult  GetFirstPhysicsBodyInReach();
+	FHitResult  const GetFirstPhysicsBodyInReach();
 	void FindPhysicsHandleComponent();
 	void SetupInputComponent();
 	void Grab();

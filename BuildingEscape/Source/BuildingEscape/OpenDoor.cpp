@@ -18,6 +18,10 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
+	if (!PressurePlate) 
+	{ 
+		UE_LOG(LogTemp, Error, TEXT("%s is missing pressure plate"), *GetOwner()->GetName())
+	}
 }
 
 
@@ -30,31 +34,19 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 	//Open Door when the total mass of actor on the pressure plate is bigger than 30kg
 	if (GetTotalMassOfActorsOnPlate() > 30.f) 
 	{
-		OpenDoor();
+		OnOpen.Broadcast();
 	}
-	if ((LastDoorOpenTime + DoorCloseDelay) < GetWorld()->GetTimeSeconds()) 
+	else
 	{
-		CloseDoor();
+		OnClose.Broadcast();
 	}
-}
-
-//Open Door
-void UOpenDoor::OpenDoor()
-{
-	GetOwner()->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
-	LastDoorOpenTime = GetWorld()->GetTimeSeconds();
-}
-
-//Close Door
-void UOpenDoor::CloseDoor()
-{
-	GetOwner()->SetActorRotation(FRotator(0.f, 0.f, 0.f));
 }
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate()
 {
 	float TotalMassOnPlate = 0.f;
 	TArray<AActor*> OverlappingActors;
+	if (!PressurePlate)	{ return TotalMassOnPlate; }
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	for (const auto& Actor : OverlappingActors)
 	{
