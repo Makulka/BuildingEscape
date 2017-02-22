@@ -3,35 +3,27 @@
 #pragma once
 
 #include "Components/ActorComponent.h"
-#include "Grabber.generated.h"
+#include "OpenDoor2.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class BUILDINGESCAPE_API UGrabber : public UActorComponent
+class BUILDINGESCAPE_API UOpenDoor2 : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UGrabber();
+	UOpenDoor2();
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
+
 private:
-	float Reach = 300.f;
-	UPhysicsHandleComponent* PhysicsHandle = nullptr;
-	UInputComponent* InputComponent = nullptr;
-
-	FVector GetReachLineStart();
-	FVector GetReachLineEnd();
-	//Line-tracing to detect a physics body
-	FHitResult  const GetFirstPhysicsBodyInReach();
-	void FindPhysicsHandleComponent();
-	void SetupInputComponent();
-	void Grab();
-	void Release();
-
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume* PressurePlate2 = nullptr;
+		
+	
 };
